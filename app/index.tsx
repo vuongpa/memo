@@ -1,4 +1,3 @@
-import { SunsetColors, SunsetUtils } from '@/constants/sunset-colors';
 import Feather from '@expo/vector-icons/Feather';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -6,7 +5,10 @@ import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Alert, StyleSheet, Text, TouchableOpacity, View,
+} from 'react-native';
+import { SunsetColors, SunsetUtils } from '@/constants/sunset-colors';
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
@@ -35,7 +37,7 @@ export default function CameraScreen() {
   }
 
   const toggleCameraFacing = () => {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
+    setFacing((current) => (current === 'back' ? 'front' : 'back'));
   };
 
   const takePicture = async () => {
@@ -92,8 +94,8 @@ export default function CameraScreen() {
 
   return (
     <View style={styles.container}>
-      <CameraView 
-        style={styles.camera} 
+      <CameraView
+        style={styles.camera}
         facing={facing}
         ref={cameraRef}
       >
@@ -102,18 +104,18 @@ export default function CameraScreen() {
             <FontAwesome6 name="arrows-rotate" size={24} color="black" />
           </TouchableOpacity>
         </View>
-        
+
         <View style={styles.bottomButtonContainer}>
           <TouchableOpacity style={styles.button} onPress={pickFromLibrary}>
             <MaterialIcons name="my-library-add" size={30} color="black" />
           </TouchableOpacity>
-          
+
           <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-            <View style={styles.captureButtonInner}></View>
+            <View style={styles.captureButtonInner} />
           </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[styles.button, isRecording && styles.recordingButton]} 
+
+          <TouchableOpacity
+            style={[styles.button, isRecording && styles.recordingButton]}
             onPress={recordVideo}
           >
             {isRecording ? <Feather name="video-off" size={30} color="black" /> : <Feather name="video" size={30} color="black" />}
@@ -197,5 +199,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
-  }
+  },
 });

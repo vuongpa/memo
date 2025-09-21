@@ -1,55 +1,43 @@
-/**
- * Sunset-themed colors for the MemoApp. 
- * Inspired by golden hour and warm sunset tones.
- */
-
 import { Platform } from 'react-native';
 
-// Sunset theme tint colors
-const tintColorLight = '#FF6B6B';    // Warm coral for light mode
-const tintColorDark = '#FFD93D';     // Golden yellow for dark mode
+const tintColorLight = '#FF6B6B';
+const tintColorDark = '#FFD93D';
 
 export const Colors = {
   light: {
-    text: '#2C1810',           // Dark brown text
-    background: '#FFF8E7',     // Warm cream background
+    text: '#2C1810',
+    background: '#FFF8E7',
     tint: tintColorLight,
-    icon: '#FF8A65',           // Warm orange icons
-    tabIconDefault: '#FFAB91', // Peachy default icons
+    icon: '#FF8A65',
+    tabIconDefault: '#FFAB91',
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#F4E4BC',           // Warm light text
-    background: '#2C1810',     // Dark brown background
+    text: '#F4E4BC',
+    background: '#2C1810',
     tint: tintColorDark,
-    icon: '#FFB74D',           // Golden orange icons
-    tabIconDefault: '#FF8A65', // Warm orange default
+    icon: '#FFB74D',
+    tabIconDefault: '#FF8A65',
     tabIconSelected: tintColorDark,
   },
-  
-  // Sunset theme specific colors
   sunset: {
-    primary: '#FF6B6B',        // Main coral
-    secondary: '#FFD93D',      // Golden yellow
-    accent: '#FFAB91',         // Peach accent
-    warm: '#FFB74D',           // Warm orange
+    primary: '#FF6B6B',
+    secondary: '#FFD93D',
+    accent: '#FFAB91',
+    warm: '#FFB74D',
     gradient: {
       start: '#FF6B6B',
-      middle: '#FFD93D', 
-      end: '#FFAB91'
-    }
-  }
+      middle: '#FFD93D',
+      end: '#FFAB91',
+    },
+  },
 };
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {

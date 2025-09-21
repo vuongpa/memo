@@ -2,39 +2,39 @@
 export const SunsetColors = {
   // Màu chính
   primary: {
-    sunset: '#FF6B6B',      // Hồng cam chủ đạo
-    golden: '#FFD93D',      // Vàng rực rỡ
-    orange: '#FFB74D',      // Cam ấm áp
-    peach: '#FFAB91',       // Hồng đào nhạt
+    sunset: '#FF6B6B', // Hồng cam chủ đạo
+    golden: '#FFD93D', // Vàng rực rỡ
+    orange: '#FFB74D', // Cam ấm áp
+    peach: '#FFAB91', // Hồng đào nhạt
   },
-  
+
   // Màu nền
   background: {
-    dark: '#2C1810',        // Nền tối nâu ấm
-    gradient: '#3E2723',    // Nâu gradient
-    overlay: '#4A2C2A',     // Overlay tối
+    dark: '#2C1810', // Nền tối nâu ấm
+    gradient: '#3E2723', // Nâu gradient
+    overlay: '#4A2C2A', // Overlay tối
   },
-  
+
   // Màu text
   text: {
-    light: '#F4E4BC',       // Vàng nhạt cho text sáng
-    dark: '#2C1810',        // Tối cho text trên nền sáng
-    accent: '#FF8A65',      // Cam nhạt cho accent
+    light: '#F4E4BC', // Vàng nhạt cho text sáng
+    dark: '#2C1810', // Tối cho text trên nền sáng
+    accent: '#FF8A65', // Cam nhạt cho accent
   },
-  
+
   // Màu tương tác
   interactive: {
-    button: 'rgba(255, 183, 77, 0.85)',     // Nút bình thường
+    button: 'rgba(255, 183, 77, 0.85)', // Nút bình thường
     buttonPressed: 'rgba(255, 107, 107, 0.9)', // Nút được nhấn
-    recording: 'rgba(255, 107, 107, 0.9)',     // Trạng thái recording
-    shadow: '#FF6B6B',                          // Màu shadow
+    recording: 'rgba(255, 107, 107, 0.9)', // Trạng thái recording
+    shadow: '#FF6B6B', // Màu shadow
   },
-  
+
   // Gradient colors
   gradients: {
     sunset: ['#FF6B6B', '#FFD93D', '#FFAB91'], // Gradient hoàng hôn
-    warm: ['#FFB74D', '#FF8A65', '#FFAB91'],   // Gradient ấm áp
-  }
+    warm: ['#FFB74D', '#FF8A65', '#FFAB91'], // Gradient ấm áp
+  },
 };
 
 // Utility functions để làm việc với màu
@@ -49,7 +49,7 @@ export const SunsetUtils = {
     }
     return color;
   },
-  
+
   // Tạo shadow style
   createShadow: (color: string = SunsetColors.interactive.shadow, opacity: number = 0.3) => ({
     shadowColor: color,
