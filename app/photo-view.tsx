@@ -12,7 +12,9 @@ type Props = {
   saveImageToLibrary: () => void;
 };
 export function PhotoView(props: Props) {
-  const { capturedImageUri, retakePhoto, saveImageToLibrary } = props;
+  const {
+    capturedImageUri, retakePhoto, saveImageToLibrary,
+  } = props;
 
   if (!capturedImageUri) {
     return null;

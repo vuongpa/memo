@@ -97,14 +97,13 @@ export default function CameraScreen() {
   const pickFromLibrary = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
         aspect: [4, 3],
         quality: 1,
       });
-
-      if (!result.canceled) {
-        Alert.alert('Đã chọn', 'Bạn đã chọn ảnh/video từ thư viện');
+      if (!result.canceled && result.assets[0]) {
+        setCapturedImageUri(result.assets[0].uri);
       }
     } catch {
       Alert.alert('Lỗi', 'Không thể chọn từ thư viện');
