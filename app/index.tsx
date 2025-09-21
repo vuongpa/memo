@@ -6,15 +6,19 @@ import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  Alert, StyleSheet, Text, TouchableOpacity, View,
+  Alert,
+  StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
+
 import { SunsetColors, SunsetUtils } from '@/constants/sunset-colors';
+import { PhotoView } from './photo-view';
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [mediaLibraryPermission, requestMediaLibraryPermission] = MediaLibrary.usePermissions();
   const [isRecording, setIsRecording] = useState(false);
+  const [capturedImageUri, setCapturedImageUri] = useState<string | null>(null);
   const cameraRef = useRef<CameraView>(null);
 
   useEffect(() => {
@@ -44,14 +48,29 @@ export default function CameraScreen() {
     if (cameraRef.current) {
       try {
         const photo = await cameraRef.current.takePictureAsync();
-        if (photo && mediaLibraryPermission?.granted) {
-          await MediaLibrary.saveToLibraryAsync(photo.uri);
-          Alert.alert('Thành công', 'Ảnh đã được lưu vào thư viện');
+        if (photo) {
+          setCapturedImageUri(photo.uri);
         }
       } catch {
         Alert.alert('Lỗi', 'Không thể chụp ảnh');
       }
     }
+  };
+
+  const saveImageToLibrary = async () => {
+    if (capturedImageUri && mediaLibraryPermission?.granted) {
+      try {
+        await MediaLibrary.saveToLibraryAsync(capturedImageUri);
+        Alert.alert('Thành công', 'Ảnh đã được lưu vào thư viện');
+        setCapturedImageUri(null);
+      } catch {
+        Alert.alert('Lỗi', 'Không thể lưu ảnh vào thư viện');
+      }
+    }
+  };
+
+  const retakePhoto = () => {
+    setCapturedImageUri(null);
   };
 
   const recordVideo = async () => {
@@ -94,34 +113,45 @@ export default function CameraScreen() {
 
   return (
     <View style={styles.container}>
-      <CameraView
-        style={styles.camera}
-        facing={facing}
-        ref={cameraRef}
-      >
-        <View style={styles.topButtonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <FontAwesome6 name="arrows-rotate" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
+      {capturedImageUri ? (
+        <PhotoView
+          capturedImageUri={capturedImageUri}
+          retakePhoto={retakePhoto}
+          saveImageToLibrary={saveImageToLibrary}
+        />
+      ) : (
+        <CameraView
+          style={styles.camera}
+          facing={facing}
+          ref={cameraRef}
+        >
+          <View style={styles.topButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+              <FontAwesome6 name="arrows-rotate" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.bottomButtonContainer}>
-          <TouchableOpacity style={styles.button} onPress={pickFromLibrary}>
-            <MaterialIcons name="my-library-add" size={30} color="black" />
-          </TouchableOpacity>
+          <View style={styles.bottomButtonContainer}>
+            <TouchableOpacity style={styles.button} onPress={pickFromLibrary}>
+              <MaterialIcons name="my-library-add" size={30} color="black" />
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-            <View style={styles.captureButtonInner} />
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.captureButton}
+              onPress={takePicture}
+            >
+              <View style={styles.captureButtonInner} />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.button, isRecording && styles.recordingButton]}
-            onPress={recordVideo}
-          >
-            {isRecording ? <Feather name="video-off" size={30} color="black" /> : <Feather name="video" size={30} color="black" />}
-          </TouchableOpacity>
-        </View>
-      </CameraView>
+            <TouchableOpacity
+              style={[styles.button, isRecording && styles.recordingButton]}
+              onPress={recordVideo}
+            >
+              {isRecording ? <Feather name="video-off" size={30} color="black" /> : <Feather name="video" size={30} color="black" />}
+            </TouchableOpacity>
+          </View>
+        </CameraView>
+      )}
     </View>
   );
 }
@@ -199,5 +229,31 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
+  },
+  capturedImageContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  capturedImage: {
+    width: '90%',
+    height: '80%',
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: SunsetColors.interactive.button,
+  },
+  fullScreenImageContainer: {
+    flex: 1,
+    backgroundColor: SunsetColors.background.dark,
+  },
+  fullScreenImage: {
+    flex: 1,
+    width: '100%',
+    resizeMode: 'contain',
   },
 });
