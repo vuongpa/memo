@@ -1,30 +1,44 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Sunset-themed colors for the MemoApp. 
+ * Inspired by golden hour and warm sunset tones.
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// Sunset theme tint colors
+const tintColorLight = '#FF6B6B';    // Warm coral for light mode
+const tintColorDark = '#FFD93D';     // Golden yellow for dark mode
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    text: '#2C1810',           // Dark brown text
+    background: '#FFF8E7',     // Warm cream background
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: '#FF8A65',           // Warm orange icons
+    tabIconDefault: '#FFAB91', // Peachy default icons
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: '#F4E4BC',           // Warm light text
+    background: '#2C1810',     // Dark brown background
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: '#FFB74D',           // Golden orange icons
+    tabIconDefault: '#FF8A65', // Warm orange default
     tabIconSelected: tintColorDark,
   },
+  
+  // Sunset theme specific colors
+  sunset: {
+    primary: '#FF6B6B',        // Main coral
+    secondary: '#FFD93D',      // Golden yellow
+    accent: '#FFAB91',         // Peach accent
+    warm: '#FFB74D',           // Warm orange
+    gradient: {
+      start: '#FF6B6B',
+      middle: '#FFD93D', 
+      end: '#FFAB91'
+    }
+  }
 };
 
 export const Fonts = Platform.select({
